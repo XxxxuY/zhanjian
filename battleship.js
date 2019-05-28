@@ -40,21 +40,20 @@
         return false;
       },
     isSunk: function (ship) {
-      var count = 0
+      var count = 0;
+      for (var i = 0; i < this.shipLength; i++) {
+        document.getElementById (ship.locations[i]).style.backgroundImage = "url('photo/ship.png')"
+        view.displayHit(ship.locations[i])
+      }
       for (var i = 0; i < this.shipLength; i++) {
         if (ship.hits[i] === "hit") {
+          document.getElementById (ship.locations[i]).style.backgroundImage = "url('photo/baozha1.png')"
           count++;
         }
-        if (count === 1){
-          for (var j = 0; j < this.shipLength; j++) {
-            document.getElementById (ship.locations[j]).style.backgroundColor = "green";
+        if (count  * 10 > model.shipLength * 6){
+          for (var i = 0; i < this.shipLength; i++) {
+            document.getElementById (ship.locations[i]).style.backgroundImage = "url('photo/baozha1.png')"
           }
-        } else {
-          for (var f = 0; f < this.shipLength; f++) {
-            document.getElementById (ship.locations[f]).style.backgroundColor = "red";
-          }
-        }
-        if (count > this.shipLength * 0.666) {
           return true;
         }
       };
@@ -153,6 +152,7 @@
   }
   function test (event){
     var guess = this.id;
+    // console.log(this.id)
     controller.processGuess (guess);
     // console.log (event.target.id)
   }
